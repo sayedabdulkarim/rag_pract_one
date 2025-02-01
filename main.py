@@ -1,5 +1,8 @@
 from langchain_community.document_loaders import UnstructuredPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import OllamaEmbeddings
+from langchain_community.vectorstores import FAISS
 ################# Document Loading ##################
 data=None
 local_path = "scammer-agent.pdf"
@@ -30,3 +33,20 @@ else:
 # Print the chunks
 
 print(chunks, ' chunks ======')
+
+############ Embeddings and Vector Database ############
+
+# """
+# Embedding - for text to number conversion, makes text searchable
+# Vector Database - for storing embeddings and searching embeddings , enables similarity search
+# Embeddings and Vector Database
+# """
+
+# Add to vector database
+vector_db = Chroma.from_documents(
+    documents=chunks,
+    embedding=OllamaEmbeddings(model="nomic-embed-text", show_progress=True),
+    collection_name="local-rag"
+)
+
+print(vector_db, 'vector_db ======')
