@@ -1,6 +1,6 @@
 from langchain_community.document_loaders import UnstructuredPDFLoader
-
-## Document Loading
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+################# Document Loading ##################
 data=None
 local_path = "scammer-agent.pdf"
 
@@ -13,4 +13,20 @@ if local_path:
 else:
     print("Upload a PDF file")
 
-print(data, 'end ======')
+print(data, 'data ======')
+
+
+################## Chunking ##################
+# Define the text splitter
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=7500, chunk_overlap=100)
+
+# Split the documents
+if data is None:
+    print("No data loaded from PDF")
+    exit(1)
+else:
+    chunks = text_splitter.split_documents(data)
+
+# Print the chunks
+
+print(chunks, ' chunks ======')
