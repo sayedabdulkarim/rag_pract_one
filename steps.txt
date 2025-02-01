@@ -1,0 +1,5 @@
+Document Loading
+Chunking
+Embeddings and Vector Database
+Querying with LLM (Ollama)
+RAG (Retrieval-Augmented Generation)

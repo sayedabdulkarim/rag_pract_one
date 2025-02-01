@@ -1,10 +1,16 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""Simple hello world program."""
+from langchain_community.document_loaders import UnstructuredPDFLoader
 
-def main():
-    """Print greeting message."""
-    print("Hello, World!")
+## Document Loading
+data=None
+local_path = "scammer-agent.pdf"
 
-if __name__ == "__main__":
-    main()
+print('start ======')
+#
+# # Local PDF file uploads
+if local_path:
+    loader = UnstructuredPDFLoader(file_path=local_path)
+    data = loader.load()
+else:
+    print("Upload a PDF file")
+
+print(data, 'end ======')

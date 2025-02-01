@@ -1,0 +1,10 @@
+langchain-community
+langchain
+chromadb
+unstructured==0.10.30
+pdfminer.six==20221105
+pdf2image
+opencv-python
+pandas
+unstructured_pytesseract
+unstructured_inference
