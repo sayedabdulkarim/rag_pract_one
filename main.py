@@ -2,7 +2,9 @@ from langchain_community.document_loaders import UnstructuredPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OllamaEmbeddings
-from langchain_community.vectorstores import FAISS
+# from langchain_community.vectorstores import FAISS
+from langchain_community.chat_models import ChatOllama
+from langchain.prompts import ChatPromptTemplate, PromptTemplate
 ################# Document Loading ##################
 data=None
 local_path = "scammer-agent.pdf"
@@ -50,3 +52,16 @@ vector_db = Chroma.from_documents(
 )
 
 print(vector_db, 'vector_db ======')
+
+
+########### Setup Language local_model ############
+local_model = "llama3.2:1b"  # Replace with your model name
+llm = ChatOllama(model=local_model)
+
+########### Create Query Prompt ############
+#   Generated multi Variations of the user question to retrieve relevant documents from a vector database
+QUERY_PROMPT = PromptTemplate(
+    input_variables=["question"],
+    template="""You are an AI language model assistant. Your task is to generate five different versions of the given user question to retrieve relevant documents from a vector database. By generating multiple perspectives on the user question, your goal is to help the user overcome some of the limitations of the distance-based similarity search. Provide these alternative questions separated by newlines.
+Original question: {question}""",
+)
